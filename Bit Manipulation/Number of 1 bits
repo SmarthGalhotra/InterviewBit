@@ -1,0 +1,54 @@
+/*
+
+Write a function that takes an unsigned integer and returns the number of 1 bits it has.
+
+Example:
+
+The 32-bit integer 11 has binary representation
+
+00000000000000000000000000001011
+so the function should return 3.
+
+*/
+
+
+/* 
+    Approach 1- Brute force -- Loop through all bits - check if  bit is set.
+    
+    count += n & 1;
+    n >>=1;
+    
+    Visualization for n = 9 using - bitset<32>(i) ...
+        
+        n =   00000000000000000000000000001001
+        n&1 = 00000000000000000000000000000001
+        count = 1
+        
+        n =   00000000000000000000000000000100
+        n&1 = 00000000000000000000000000000000
+        count = 1
+        
+        n =   00000000000000000000000000000010
+        n&1 = 00000000000000000000000000000000
+        count = 1
+        
+        n =   00000000000000000000000000000001
+        n&1 = 00000000000000000000000000000001
+        count = 2
+        
+    Approach 2: Using Kernighan’s Algorithm :-
+    
+*/
+    
+int Solution::numSetBits(unsigned int A) {
+    unsigned int n = A;
+    unsigned int count = 0;
+
+    while (n) { 
+        n &= (n - 1); 
+        count++; 
+        
+    } 
+    return count;
+    
+}
