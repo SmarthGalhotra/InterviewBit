@@ -1,0 +1,67 @@
+/*
+
+Given a binary tree, invert the binary tree and return it. 
+Look at the example for more details.
+
+Example : 
+Given binary tree
+
+     1
+   /   \
+  2     3
+ / \   / \
+4   5 6   7
+invert and return
+
+     1
+   /   \
+  3     2
+ / \   / \
+7   6 5   4
+
+*/
+
+/*
+
+// Iterative approach - Level Order Traversal
+
+
+ 
+ TreeNode* invertBT(TreeNode* root){
+     queue<TreeNode*> q;
+     q.push(root);
+     
+     
+     while(q.empty() == false){
+         TreeNode* node = q.front();
+         TreeNode* temp;
+         temp = node->left;
+         node->left = node->right;
+         node->right = temp;
+         if(node->left) q.push(node->left);
+         if(node->right) q.push(node->right);
+         q.pop();
+         
+     }
+     return root;
+ }
+TreeNode* Solution::invertTree(TreeNode* A) {
+    TreeNode* ans = invertBT(A);
+    return ans;
+}
+
+*/
+
+// Recursive approach:
+
+TreeNode* Solution::invertTree(TreeNode* A) {
+    if(A == NULL)
+        return A;
+    TreeNode* l = A->left;
+    TreeNode* r = A->right;
+    A->left = invertTree(r);
+    A->right = invertTree(l);
+    return A;
+}
+
+
