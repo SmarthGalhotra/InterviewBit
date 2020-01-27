@@ -1,0 +1,73 @@
+/*
+Given a binary tree, return the zigzag level order traversal of its nodes’ values. (ie, from left to right, then right to left for the next level and alternate between).
+
+Example : 
+Given binary tree
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return
+
+[
+         [3],
+         [20, 9],
+         [15, 7]
+]
+*/
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+vector<vector<int> > Solution::zigzagLevelOrder(TreeNode* A) {
+    vector<vector<int>> ans;
+    
+    if(A == NULL) return ans;
+    
+    stack <TreeNode*> s_one;
+    stack <TreeNode*> s_two;
+    
+    s_one.push(A);
+    
+    while(s_one.empty() == false || s_two.empty() == false){
+        
+        
+        vector<int> temp_one;
+        bool flag_one = false;
+        while(s_one.empty() == false){
+            flag_one = true;
+            TreeNode* node = s_one.top();
+            temp_one.push_back(node->val);
+            // cout << node->val << "\n";
+            if(node->left)s_two.push(node->left);
+            if(node->right)s_two.push(node->right);
+            s_one.pop();
+        }
+        if(flag_one == true) ans.push_back(temp_one);
+        
+        bool flag_two = false;
+        vector<int> temp_two;
+        while(s_two.empty() == false){
+            flag_two = true;
+            TreeNode* node_two = s_two.top();
+            temp_two.push_back(node_two->val);
+            // cout << node_two->val << "\n";
+            if(node_two->right)s_one.push(node_two->right);
+            if(node_two->left)s_one.push(node_two->left);
+            s_two.pop();
+
+        }
+        if(flag_two==true)ans.push_back(temp_two);
+    }
+    return ans;
+    
+}
+
